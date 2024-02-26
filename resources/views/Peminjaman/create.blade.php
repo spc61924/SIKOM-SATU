@@ -10,8 +10,8 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('data-buku') }}">Data Buku</a></li>
-                    <li class="breadcrumb-item text-white active">Form Input Buku</li>
+                    <li class="breadcrumb-item"><a href="{{ route('data-buku') }}">Data Peminjaman</a></li>
+                    <li class="breadcrumb-item text-white active">Form Input Peminjaman</li>
                 </ol>
             </nav>
         </div>
@@ -22,7 +22,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="main-content-label mg-b-5">
-                        Form Input Buku
+                        FORM INPUT PEMINJAMAN
                     </div>
                     <p class="mg-b-20">Silahkan isi form di bawah ini dengan lengkap.</p>
                     <!-- message info -->
@@ -32,30 +32,13 @@
                             @csrf
                             <div class="row row-xs align-items-center mg-b-20">
                                 <div class="col-md-3">
-                                    <label class="form-label mg-b-0">PENGGUNA</label>
-                                </div>
-                                <div class="col-md-9 mg-t-5 mg-md-t-0">
-                                    <select class="form-control select2" name="user_id" style="width: 100%">
-                                        @foreach ($users as $item)
-                                        {{-- <option value="{{ old('user_id') }}"></option> --}}
-                                        <option disabled value>Pilih Pengguna</option>
-                                        {{-- <option value="{{ $item->id }}">{{ $item->username }}</option> --}}
-                                        <option value="{{ $item->id }}" @if(old('user_id') == $item->id) selected @endif>{{ $item->username }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row row-xs align-items-center mg-b-20">
-                                <div class="col-md-3">
                                     <label class="form-label mg-b-0">BUKU</label>
                                 </div>
                                 <div class="col-md-9 mg-t-5 mg-md-t-0">
                                     <select class="form-control select2" name="buku_id" style="width: 100%">
-                                        {{-- <option value="{{ old('buku_id') }}"></option> --}}
-                                        <option disabled value>Pilih Buku</option>
+                                        <option value="">Pilih Buku</option>
                                         @foreach ($books as $item)
-                                        <option value="{{ $item->id }}">{{ $item->judul }}</option>
-                                        {{-- <option value="{{ $item->id }}" @if(old('buku_id') == $item->id) selected @endif>{{ $item->judul }}</option> --}}
+                                        <option value="{{ $item->id }}" @if(old('buku_id') == $item->id) selected @endif>{{ $item->judul }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -65,7 +48,7 @@
                                     <label class="form-label mg-b-0">TANGGAL PEMINJAMAN</label>
                                 </div>
                                 <div class="col-md-9 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" placeholder="" type="text" name="tanggal_peminjaman" id="datepickerA" value="{{date('Y/m/d')}}">
+                                    <input class="form-control" placeholder="" type="text" name="tanggal_peminjaman" id="datepickerA" value="{{ old('tanggal_peminjaman', date('Y/m/d')) }}">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">
@@ -75,7 +58,7 @@
                                     <label class="form-label mg-b-0">TANGGAL PENGEMBALIAN</label>
                                 </div>
                                 <div class="col-md-9 mg-t-5 mg-md-t-0">
-                                    <input class="form-control" placeholder="" type="text" name="tanggal_pengembalian" id="datepickerA" value="{{date('Y/m/d')}}">
+                                    <input class="form-control" placeholder="" type="text" name="tanggal_pengembalian" id="datepickerA" value="{{ old('tanggal_pengembalian', date('Y/m/d')) }}">
                                 </div>
                             </div>
                             <div class="row row-xs align-items-center mg-b-20">

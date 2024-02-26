@@ -12,7 +12,7 @@ class PeminjamanController extends Controller
 {
     public function index()
     {
-        $data = Peminjaman::with('user', 'buku')->get();
+        $data = Peminjaman::with('user', 'buku')->latest()->get();
         return view('Peminjaman.index')->with('data', $data);
     }
 
@@ -28,13 +28,11 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id' => 'required',
             'buku_id' => 'required',
             'tanggal_peminjaman' => 'required|date_format:Y/m/d',
             'tanggal_pengembalian' => 'required|date_format:Y/m/d',
             'status_peminjaman' => 'required',
         ], [
-            'user_id.required' => 'Pengguna Wajib Diisi',
             'buku_id.required' => 'Buku Wajib Diisi',
             'tanggal_peminjaman.required' => 'Tanggal Peminjaman Wajib Diisi',
             'tanggal_pengembalian.required' => 'Tanggal Pengembalian Wajib Diisi',
@@ -62,16 +60,44 @@ class PeminjamanController extends Controller
 
     public function edit($id)
     {
-        //
+        $users = User::all();$books = Buku::all();
+        $data = Peminjaman::where('id', $id)->first();
+        return view('Peminjaman.edit', compact('data','users','books'));
     }
 
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            // 'user_id' => 'required',
+            'buku_id' => 'required',
+            'tanggal_peminjaman' => 'required|date_format:Y/m/d',
+            'tanggal_pengembalian' => 'required|date_format:Y/m/d',
+            'status_peminjaman' => 'required',
+        ], [
+            // 'user_id.required' => 'Pengguna Wajib Diisi',
+            'buku_id.required' => 'Buku Wajib Diisi',
+            'tanggal_peminjaman.required' => 'Tanggal Peminjaman Wajib Diisi',
+            'tanggal_pengembalian.required' => 'Tanggal Pengembalian Wajib Diisi',
+            'status_peminjaman.required' => 'Status Peminjaman Wajib Diisi',
+        ]);
+
+        $user = Auth::user()->id;
+
+        $data = [
+            'user_id' => $user,
+            'buku_id' => $request->buku_id,
+            'tanggal_peminjaman' => $request->tanggal_peminjaman,
+            'tanggal_pengembalian' => $request->tanggal_pengembalian,
+            'status_peminjaman' => $request->status_peminjaman
+        ];
+
+        Peminjaman::where('id', $id)->update($data);
+        return redirect('data-peminjaman')->with('success', 'Successfully updated data');
     }
 
     public function destroy($id)
     {
-        //
+        Peminjaman::where('id', $id)->delete();
+        return redirect('data-peminjaman')->with('success', 'Successfully deleted data');
     }
 }

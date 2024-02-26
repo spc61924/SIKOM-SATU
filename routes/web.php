@@ -51,5 +51,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('data-peminjaman', [PeminjamanController::class, 'index'])->name('data-peminjaman');
     Route::get('create-peminjaman', [PeminjamanController::class, 'create'])->name('create-peminjaman');
     Route::post('store-peminjaman', [PeminjamanController::class, 'store'])->name('store-peminjaman');
+    Route::get('edit-peminjaman/{id}', [PeminjamanController::class, 'edit'])->name('edit-peminjaman');
+    Route::put('update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('update-peminjaman');
+    Route::get('delete-peminjaman/{id}', [PeminjamanController::class, 'destroy'])->name('delete-peminjaman');
 
 });

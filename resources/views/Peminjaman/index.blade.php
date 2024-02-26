@@ -70,8 +70,8 @@
                                     <th>{{ \Carbon\Carbon::parse($item->tanggal_pengembalian)->format('d/m/Y') }}</th>
                                     <td>{{ $item->status_peminjaman }}</td>
                                     <td>
-                                        <a href="#" class="btn btn-info btn-sm" title="Edit"><i class="fe fe-edit"></i></a>
-                                        <a href="#" class="btn btn-danger btn-sm" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fe fe-trash"></i></a>
+                                        <a href="{{ route('edit-peminjaman', $item) }}" class="btn btn-info btn-sm" title="Edit"><i class="fe fe-edit"></i></a>
+                                        <a href="{{ route('delete-peminjaman', $item) }}" class="btn btn-danger btn-sm" title="Hapus" onclick="return confirm('Apakah anda yakin ingin menghapus data ini?')"><i class="fe fe-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
